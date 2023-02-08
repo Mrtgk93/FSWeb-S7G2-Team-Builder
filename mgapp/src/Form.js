@@ -1,106 +1,94 @@
 import { useState } from "react";
-import React from "react";
 
-let uyeListesi = {
-  isim: "",
-  soyisim: "",
-  email: "",
-  rol: "",
-  yaş: "",
-};
-export default function Form() {
-  const [uye, setUye] = useState({
+export default function Form(props) {
+  const { handleSubmitCallBack } = props;
+  const [data, setData] = useState({
     isim: "",
     soyisim: "",
     email: "",
     rol: "",
-    yaş: "",
+    yas: "",
   });
 
-  function handleInputChange(event) {
-    const { value, id } = event.target;
-  }
-  /* const yeniState = {
-    ...uye,
-    [id]: value,
-  }; */
+  function changeHandlerName(e) {
+    const { value, name } = e.target;
 
-  /* setUye(yeniState); */
-
-  function handleClearForm() {
-    console.log("form temizlendi");
-    setUye({
-      isim: "",
-      soyisim: "",
-      email: "",
-      rol: "",
-      yas: "",
-    });
+    const yeniData = {
+      ...data,
+      [name]: value,
+    };
+    setData(yeniData);
   }
 
   function handleSubmit(event) {
     event.preventDefault();
-    console.log(uye);
+    return handleSubmitCallBack(data);
   }
   return (
-    <div className="Form">
+    <div>
       <form onSubmit={handleSubmit}>
         <fieldset>
-          <legend>Üye Bilgileri</legend>
+          <legend>Üye Ekleme</legend>
           <p>
-            <label htmlFor="isim">İsim: </label>
+            <label>
+              İsim:
+              <input
+                onChange={changeHandlerName}
+                type="text"
+                id="fisim"
+                name="isim"
+                value={data.isim}
+              />
+            </label>
+          </p>
+          <p>
+            <label>
+              Soyisim:
+              <input
+                onChange={changeHandlerName}
+                type="text"
+                id="fsoyisim"
+                name="soyisim"
+                value={data.soyisim}
+              />
+            </label>
+          </p>
+          <p>
+            <label>
+              e-mail:
+              <input
+                onChange={changeHandlerName}
+                type="text"
+                id="femail"
+                name="email"
+                value={data.email}
+              />
+            </label>
+          </p>
+          <p>
+            <label>Rol: </label>
             <input
-              /* onChange={handleInputChange} */
-              /* autoComplete={false} */
-              /* value={uye.isim} */
+              onChange={changeHandlerName}
               type="text"
-              id="isim"
+              id="frol"
+              name="rol"
+              value={data.rol}
             />
           </p>
           <p>
-            <label htmlFor="soyisim">Soyisim: </label>
-            <input
-              /*  onChange={handleInputChange} */
-              /*  autoComplete={false} */
-              /* value={uye.soyisim} */
-              type="text"
-              id="soyisim"
-            />
+            <label>
+              Yaş:
+              <input
+                onChange={changeHandlerName}
+                type="text"
+                id="fyas"
+                name="yas"
+                size="5"
+                value={data.yas}
+              />
+            </label>
           </p>
-          <p>
-            <label htmlFor="email">e-mail: </label>
-            <input
-              /* onChange={handleInputChange} */
-              /* autoComplete={false} */
-              /* value={uye.email} */
-              type="text"
-              id="email"
-            />
-          </p>
-          <p>
-            <label htmlFor="rol">Rol: </label>
-            <input
-              /* onChange={handleInputChange} */
-              /* autoComplete={false} */
-              /* value={uye.rol} */
-              type="text"
-              id="rol"
-            />
-          </p>
-          <p>
-            <label htmlFor="yas">Yaş: </label>
-            <input
-              /*  onChange={handleInputChange} */
-              /* autoComplete={false} */
-              /* value={uye.yas} */
-              type="text"
-              id="yas"
-              size="5"
-            />
-          </p>
-          <button type="button" onClick={handleClearForm}>
-            Formu temizle
-          </button>
+
           <button type="submit">Gönder</button>
         </fieldset>
       </form>
